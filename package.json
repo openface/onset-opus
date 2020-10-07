@@ -1,0 +1,14 @@
+{
+	"author": "openface",
+	"version": "0.1",
+	"server_scripts": [
+		"server.lua"
+	],
+	"client_scripts": [
+		"client.lua"
+	],
+	"files": [
+		"ui/info.html",
+		"ui/info.css"
+	]
+}
