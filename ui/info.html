@@ -8,17 +8,25 @@
 </head>
 
 <body>
-    <div class="information">
+    <div id="container">
         <h4>OPUS: Object Positioning Utility Script</h4>
         <div class="commands">
-            <p>/attach modelid bone - Attach an object to player bone</p>
-            <p>/deattach - Deattach all objects</p>
-            <p>[F] / SHIFT [F] - Relative X location</p>
-            <p>[G] / SHIFT [G] - Relative Y location</p>
-            <p>[H] / SHIFT [H] - Relative Z location</p>
-            <p>[J] / SHIFT [J] - Relative pitch rotation</p>
-            <p>[K] / SHIFT [K] - Relative yaw rotation</p>
-            <p>[L] / SHIFT [L] - Relative roll rotation</p>
+            <p>
+                <b>/attach &lt;modelid&gt; &lt;bone&gt;</b> - Attach an object to player bone<br />
+                <b>/detach</b> - Detach object from player
+            </p>
+            <p>
+                Once attached, use the keys below to adjust the attachment position. (^ means shift)<br />
+                The default increment is 10.  Use <b>[N]</b>/<b>[^N]</b> to change increments.
+            </p>
+            <p>
+                <b>[X]</b> / <b>[^X]</b> - Relative X location<br />
+                <b>[Y]</b> / <b>[^Y]</b> - Relative Y location<br />
+                <b>[Z]</b> / <b>[^Z]</b> - Relative Z location<br />
+                <b>[J]</b> / <b>[^J]</b> - Relative pitch rotation<br />
+                <b>[K]</b> / <b>[^K]</b> - Relative yaw rotation<br />
+                <b>[L]</b> / <b>[^L]</b> - Relative roll rotation<br />
+            </p>
         </div>
     </div>
 </body>

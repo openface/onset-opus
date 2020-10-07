@@ -17,36 +17,35 @@ end)
 function OnKeyPress(key)
     if key == "N" then
         if IsShiftPressed() then
-            i = i + 1
-            AddPlayerChat("Increment: "..i)
-        else
             i = i - 1
-            AddPlayerChat("Decrement: "..i)        
+            AddPlayerChat("Incrementation decreased to: "..i)  
+        else
+            i = i + 1
+            AddPlayerChat("Incrementation increased to: "..i)
         end
-    elseif key == "F" then
-        -- X
+    elseif key == "X" then
         if IsShiftPressed() then
             x = x - i
         else
             x = x + i
         end
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
-    elseif key == "G" then
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
+    elseif key == "Y" then
         -- Y
         if IsShiftPressed() then
             y = y - i
         else
             y = y + i
         end 
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
-    elseif key == "H" then
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
+    elseif key == "Z" then
         -- Z
         if IsShiftPressed() then
             z = z - i
         else
             z = z + i
         end 
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
     elseif key == "J" then
         -- RX
         if IsShiftPressed() then
@@ -54,7 +53,7 @@ function OnKeyPress(key)
         else
             rx = rx + i
         end 
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
     elseif key == "K" then
         -- RY
         if IsShiftPressed() then
@@ -62,7 +61,7 @@ function OnKeyPress(key)
         else
             ry = ry + i
         end 
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
     elseif key == "L" then
         -- RZ
         if IsShiftPressed() then
@@ -70,7 +69,7 @@ function OnKeyPress(key)
         else
             rz = rz + i
         end 
-        CallRemoteEvent("AttachIt", x, y, z, rx, ry, rz)
+        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
     end
 end
 AddEvent("OnKeyPress", OnKeyPress)

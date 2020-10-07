@@ -14,8 +14,7 @@ function AdjustAttachmentPosition(player, x, y, z, rx, ry, rz)
 
 	AttachObjectToPlayer(player, AttachedData[player].modelid, AttachedData[player].bone, x, y, z, rx, ry, rz)
 end
-AddRemoteEvent("AttachIt", AdjustAttachmentPosition)
-
+AddRemoteEvent("ReAttachObject", AdjustAttachmentPosition)
 
 function AttachObjectToPlayer(player, modelid, bone, x, y, z, rx, ry, rz)
 	DetachObjects(player)
@@ -38,16 +37,17 @@ function AttachObjectToPlayer(player, modelid, bone, x, y, z, rx, ry, rz)
 	print(info)
 end
 
-AddCommand("attach", function(player, modelid, bone)
-	AttachObjectToPlayer(player, modelid, bone)
-end)
-
 function DetachObjects(player)
 	if AttachedData[player] ~= nil then
 		DestroyObject(AttachedData[player].object)
 		AttachedData[player] = nil
 	end
 end
+
+AddCommand("attach", function(player, modelid, bone)
+	AddPlayerChat(player, "Attached object "..modelid.." to bone "..bone)
+	AttachObjectToPlayer(player, modelid, bone)
+end)
 
 AddCommand("detach", function(player)
 	DetachObjects(player)
