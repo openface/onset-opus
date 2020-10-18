@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // attach object to player
   $("#attach_player").click(function (e) {
     CallEvent(
       "opus:AttachPlayer",
@@ -9,7 +10,19 @@ $(document).ready(function () {
       $("#attach_z").val(),
       $("#attach_rx").val(),
       $("#attach_ry").val(),
-      $("#attach_rz").val(),
+      $("#attach_rz").val()
+    );
+  });
+  // add component to attach object
+  $("#add_light").click(function (e) {
+    CallEvent(
+      "opus:AddComponent",
+      $("#light_x").val(),
+      $("#light_y").val(),
+      $("#light_z").val(),
+      $("#light_rx").val(),
+      $("#light_ry").val(),
+      $("#light_rz").val()
     );
   });
 });
