@@ -1,4 +1,4 @@
-= OPUS: Onset Positioning Utility Script
+# OPUS: Onset Positioning Utility Script
 
 A simple but helpful development tool for figuring out the location and rotation vectors for
 objects and components (such as light sources) for Onset game.
