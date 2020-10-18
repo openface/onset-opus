@@ -1,75 +1,115 @@
-local i = 10
-local x = 0
-local y = 0
-local z = 0
-local rx = 0
-local ry = 0
-local rz = 0
+local OpusUI
 
 AddEvent("OnPackageStart", function()
-  INFO = CreateWebUI(0.0, 0.0, 0.0, 0.0, 1, 1)
-  SetWebAnchors(INFO, 0.0, 0.6, 0.4, 1.0)
-  LoadWebFile(INFO, 'http://asset/' .. GetPackageName() .. '/ui/info.html')
-  SetWebVisibility(INFO, WEB_HITINVISIBLE)
+  OpusUI = CreateWebUI(0.0, 0.0, 0.0, 0.0)
+  SetWebAnchors(OpusUI, 0.0, 0.0, 1.0, 1.0)
+  LoadWebFile(OpusUI, 'http://asset/' .. GetPackageName() .. '/ui/info.html')
+  SetWebVisibility(OpusUI, WEB_HITINVISIBLE)
+end)
+
+AddEvent("OnPackageStop", function()
+  DestroyWebUI(OpusUI)
+end)
+
+AddEvent("OnConsoleInput", function(input)
+  args = split_string(input)
+  local cmd = args[1]
+  
+  if cmd ~= "attach" and cmd ~= "light" then
+      return
+  end
+
+  if cmd == "attach" then
+    local modelid = args[2]
+    local x = args[3]
+    local y = args[4]
+    local z = args[5]
+    local rx = args[6]
+    local ry = args[7]
+    local rz = args[8]
+    local bone = args[9]
+
+    if bone == nil then
+      AddPlayerChat("Usage: attach <modelid> <x> <y> <z> <rx> <ry> <rz> <bone>")
+      return
+    end
+    CallRemoteEvent("AdjustAttachmentPosition", modelid, bone, x, y, z, rx, ry, rz)
+  elseif cmd == "light" then
+    local x = args[2]
+    local y = args[3]
+    local z = args[4]
+    local rx = args[5]
+    local ry = args[6]
+    local rz = args[7]
+
+    if rz == nil then
+        AddPlayerChat("Usage: light <x> <y> <z> <rx> <ry> <rz>")
+        return
+    end
+    CallRemoteEvent("AdjustComponentPosition", x, y, z, rx, ry, rz)
+  end
+end)
+
+function split_string(inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+AddRemoteEvent("UpdateTextBox", function(info)
+  ExecuteWebJS(OpusUI, "UpdateTextBox('"..info.."')")
 end)
 
 
-function OnKeyPress(key)
-    if key == "N" then
-        if IsShiftPressed() then
-            i = i - 1
-            AddPlayerChat("Incrementation decreased to: "..i)  
-        else
-            i = i + 1
-            AddPlayerChat("Incrementation increased to: "..i)
-        end
-    elseif key == "X" then
-        if IsShiftPressed() then
-            x = x - i
-        else
-            x = x + i
-        end
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
-    elseif key == "Y" then
-        -- Y
-        if IsShiftPressed() then
-            y = y - i
-        else
-            y = y + i
-        end 
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
-    elseif key == "Z" then
-        -- Z
-        if IsShiftPressed() then
-            z = z - i
-        else
-            z = z + i
-        end 
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
-    elseif key == "J" then
-        -- RX
-        if IsShiftPressed() then
-            rx = rx - i
-        else
-            rx = rx + i
-        end 
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
-    elseif key == "K" then
-        -- RY
-        if IsShiftPressed() then
-            ry = ry - i
-        else
-            ry = ry + i
-        end 
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
-    elseif key == "L" then
-        -- RZ
-        if IsShiftPressed() then
-            rz = rz - i
-        else
-            rz = rz + i
-        end 
-        CallRemoteEvent("ReAttachObject", x, y, z, rx, ry, rz)
+--
+-- Pointlight
+--
+local Component
+
+function AdjustComponentPosition(object, x, y, z, rx, ry, rz)
+    if object == nil then
+      return
     end
+    if Component ~= nil then
+      Component:Destroy()
+    end
+
+    local Actor = GetObjectActor(object)
+    Actor:SetActorEnableCollision(false)
+
+    Component = Actor:AddComponent(USpotLightComponent.Class())
+    Component:SetIntensity(10000 * 30)
+    Component:SetLightColor(FLinearColor(255, 255, 255, 0), true)
+    Component:SetRelativeLocation(FVector(x, y, z))
+    Component:SetRelativeRotation(FRotator(rx, ry, rz))
+
+    local info = string.format('SetRelativeRotation(FRotator(%d, %d, %d))', rx, ry, rz)
+    print(info)
+    AddPlayerChat(info)
 end
-AddEvent("OnKeyPress", OnKeyPress)
+
+AddEvent("OnObjectStreamIn", function(object)
+    local pos = GetObjectPropertyValue(object, "component_position")
+    if pos ~= nil then
+      AdjustComponentPosition(object, pos.x, pos.y, pos.z, pos.rx, pos.ry, pos.rz)
+    end
+end)
+
+AddEvent("OnObjectStreamOut", function(object)
+    local pos = GetObjectPropertyValue(object, "component_position")
+    if pos ~= nil and Component ~= nil then
+      Component:Destroy()
+    end
+end)
+
+AddEvent("OnObjectNetworkUpdatePropertyValue", function(object, name, value)
+    if name == "component_position" then
+      AdjustComponentPosition(object, value.x, value.y, value.z, value.rx, value.ry, value.rz)
+    end
+end)
+

@@ -9,6 +9,8 @@
 	],
 	"files": [
 		"ui/info.html",
-		"ui/info.css"
+    "ui/info.css",
+    "ui/jquery.js",
+    "ui/opus.js"
 	]
 }
