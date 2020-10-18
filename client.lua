@@ -27,6 +27,7 @@ AddEvent("OnKeyPress", function(key)
     end
 end)
 
+-- attachments
 AddEvent("opus:AttachPlayer", function(modelid, bone, x, y, z, rx, ry, rz)
   CallRemoteEvent("AdjustAttachmentPosition", modelid, bone, x, y, z, rx, ry, rz)
 end)
@@ -35,9 +36,13 @@ AddEvent("opus:DestroyAttachment", function()
     CallRemoteEvent("DestroyAttachment")
 end)
 
-
+-- components
 AddEvent("opus:AddComponent", function(x, y, z, rx, ry, rz)
     CallRemoteEvent("AdjustComponentPosition", x, y, z, rx, ry, rz)
+end)
+
+AddEvent("opus:DestroyComponent", function()
+    CallRemoteEvent("DestroyComponent")
 end)
 
 
@@ -122,21 +127,33 @@ end
 
 AddEvent("OnObjectStreamIn", function(object)
     local pos = GetObjectPropertyValue(object, "component_position")
-    if pos ~= nil then
+    if pos == nil then
+      return
+    end
+
+    if pos ~= false then
       AdjustComponentPosition(object, pos.x, pos.y, pos.z, pos.rx, pos.ry, pos.rz)
     end
 end)
 
 AddEvent("OnObjectStreamOut", function(object)
     local pos = GetObjectPropertyValue(object, "component_position")
-    if pos ~= nil and Component ~= nil then
+    if pos == nil then
+      return false
+    end
+    
+    if pos == false and Component ~= nil then
       Component:Destroy()
     end
 end)
 
 AddEvent("OnObjectNetworkUpdatePropertyValue", function(object, name, value)
     if name == "component_position" then
-      AdjustComponentPosition(object, value.x, value.y, value.z, value.rx, value.ry, value.rz)
+      if value == false and Component ~= nil then
+        Component:Destroy()
+      else
+        AdjustComponentPosition(object, value.x, value.y, value.z, value.rx, value.ry, value.rz)
+      end
     end
 end)
 

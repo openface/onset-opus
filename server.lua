@@ -53,9 +53,12 @@ AddRemoteEvent("AdjustComponentPosition", function(player, x, y, z, rx, ry, rz)
     AddPlayerChat(player, "OPUS: Attached light component to attached object!")
 end)
 
-AddCommand("dddddetach", function(player)
-    DetachObjects(player)
-    AddPlayerChat(player, "Object has been detached")
+AddRemoteEvent("DestroyComponent", function(player)
+  if AttachedData[player] == nil then
+    AddPlayerChat(player, "OPUS: There is no object!")
+    return
+  end
+  SetObjectPropertyValue(AttachedData[player].object, "component_position", false)
 end)
 
 function dump(o)

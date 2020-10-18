@@ -29,4 +29,8 @@ $(document).ready(function () {
       $("#light_rz").val()
     );
   });
+  // detach object from player
+  $("#destroy_component").click(function (e) {
+    CallEvent("opus:DestroyComponent");
+  });
 });
