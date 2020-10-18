@@ -8,9 +8,9 @@
 		"client.lua"
 	],
 	"files": [
-		"ui/info.html",
-    "ui/info.css",
-    "ui/jquery.js",
-    "ui/opus.js"
+		"ui/opus.html",
+    "ui/opus.css",
+    "ui/opus.js",
+    "ui/jquery.js"
 	]
 }
