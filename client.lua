@@ -3,7 +3,7 @@ local OpusUI
 AddEvent("OnPackageStart", function()
   OpusUI = CreateWebUI(0.0, 0.0, 0.0, 0.0)
   SetWebAnchors(OpusUI, 0.0, 0.0, 1.0, 1.0)
-  LoadWebFile(OpusUI, 'http://asset/' .. GetPackageName() .. '/ui/info.html')
+  LoadWebFile(OpusUI, 'http://asset/' .. GetPackageName() .. '/ui/opus.html')
   SetWebVisibility(OpusUI, WEB_HIDDEN)
 end)
 
@@ -27,8 +27,11 @@ AddEvent("OnKeyPress", function(key)
     end
 end)
 
+AddEvent("opus:AttachPlayer", function(modelid, bone, x, y, z, rx, ry, rz)
+  CallRemoteEvent("AdjustAttachmentPosition", modelid, bone, x, y, z, rx, ry, rz)
+end)
 
-
+--[[
 AddEvent("OnConsoleInput", function(input)
   args = split_string(input)
   local cmd = args[1]
@@ -78,11 +81,7 @@ function split_string(inputstr, sep)
     end
     return t
 end
-
-AddRemoteEvent("UpdateCodeBox", function(info)
-  ExecuteWebJS(OpusUI, "UpdateCodeBox('"..info.."')")
-end)
-
+--]]
 
 --
 -- Pointlight

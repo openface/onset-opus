@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <script>
+      if (typeof ue === 'undefined') {
+        // for browser testing outside of game
+        ue = { game: { callevent: console.log } };
+      }
+      (function (obj) {
+        ue.game = {};
+        ue.game.callevent = function (name, ...args) {
+          if (typeof name != "string") {
+            return;
+          }
+
+          if (args.length == 0) {
+            obj.callevent(name, "");
+          } else {
+            let params = [];
+            for (let i = 0; i < args.length; i++) {
+              params[i] = args[i];
+            }
+            obj.callevent(name, JSON.stringify(params));
+          }
+        };
+      })(ue.game);
+      CallEvent = ue.game.callevent;
+    </script>
+    <script src="./jquery.js"></script>
+    <script src="./opus.js"></script>
+    <link href="./opus.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="inner">
+          <h3>OPUS: Object Positioning Utility Script</h3>
+
+          <fieldset>
+            <legend>Attach object to player</legend>
+            <div class="form-group">
+              Model ID <input type="text" id="attach_modelid" value="1271" size="10" />
+              SocketName <input type="text" id="attach_bone" value="hand_l" size="15" />
+            </div>
+            Relative position/rotation:<br />
+            <div class="form-group">
+              X <input type="number" id="attach_x" value="0" size="3" />
+              Y <input type="number" id="attach_y" value="0" size="3" />
+              Z <input type="number" id="attach_z" value="0" size="3" />
+              RX <input type="number" id="attach_rx" value="0" size="3" />
+              RY <input type="number" id="attach_ry" value="0" size="3" />
+              RZ <input type="number" id="attach_rz" value="0" size="3" />
+            </div>
+            <div class="buttons">
+              <button id="attach_player">ATTACH TO PLAYER</button>
+              <button id="attach_new_object">ATTACH TO NEW OBJECT</button>
+              <button id="detach">DETACH</button>
+            </div>
+          </fieldset>
+          <br />
+          <fieldset>
+            <legend>Add light component to attached object</legend>
+            Relative position/rotation:<br />
+            <div class="form-group">
+              X <input type="number" id="light_x" value="0" size="3" />
+              Y <input type="number" id="light_y" value="0" size="3" />
+              Z <input type="number" id="light_z" value="0" size="3" />
+              RX <input type="number" id="light_rx" value="0" size="3" />
+              RY <input type="number" id="light_ry" value="0" size="3" />
+              RZ <input type="number" id="light_rz" value="0" size="3" />
+            </div>
+            <div class="buttons">
+              <button id="add_light">ADD COMPONENT</button>
+              <button id="remove_light">DESTROY COMPONENT</button>
+            </div>
+          </fieldset>
+      </div>
+    </div>
+  </body>
+</html>
