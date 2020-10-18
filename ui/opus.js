@@ -3,7 +3,7 @@ $(document).ready(function () {
   $("#create_object").click(function (e) {
     CallEvent("opus:CreateObject", $("#create_modelid").val());
   });
-  // create new object
+  // destroy object
   $("#destroy_object").click(function (e) {
     CallEvent("opus:DestroyObject");
   });
@@ -26,7 +26,7 @@ $(document).ready(function () {
     CallEvent("opus:DetachObject");
   });
 
-  // add component to attach object
+  // add component to object
   $("#add_component").click(function (e) {
     CallEvent(
       "opus:AddComponent",
@@ -38,7 +38,7 @@ $(document).ready(function () {
       $("#light_rz").val()
     );
   });
-  // detach object from player
+  // destroy component
   $("#destroy_component").click(function (e) {
     CallEvent("opus:DestroyComponent");
   });
