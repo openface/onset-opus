@@ -13,6 +13,10 @@ $(document).ready(function () {
       $("#attach_rz").val()
     );
   });
+  // detach object from player
+  $("#destroy_attachment").click(function (e) {
+    CallEvent("opus:DestroyAttachment");
+  });
   // add component to attach object
   $("#add_light").click(function (e) {
     CallEvent(

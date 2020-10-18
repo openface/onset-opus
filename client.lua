@@ -31,6 +31,11 @@ AddEvent("opus:AttachPlayer", function(modelid, bone, x, y, z, rx, ry, rz)
   CallRemoteEvent("AdjustAttachmentPosition", modelid, bone, x, y, z, rx, ry, rz)
 end)
 
+AddEvent("opus:DestroyAttachment", function()
+    CallRemoteEvent("DestroyAttachment")
+end)
+
+
 AddEvent("opus:AddComponent", function(x, y, z, rx, ry, rz)
     CallRemoteEvent("AdjustComponentPosition", x, y, z, rx, ry, rz)
 end)

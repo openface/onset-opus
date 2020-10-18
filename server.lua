@@ -7,6 +7,13 @@ AddEvent("OnPackageStop", function()
   AttachedData = {}
 end)
 
+AddRemoteEvent("DestroyAttachment", function(player)
+  if AttachedData[player] ~= nil then
+    DestroyObject(AttachedData[player].object)
+    AttachedData[player] = nil
+  end
+end)
+
 -- Attach object
 AddRemoteEvent("AdjustAttachmentPosition", function(player, modelid, bone, x, y, z, rx, ry, rz)
   if AttachedData[player] ~= nil then
