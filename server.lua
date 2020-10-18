@@ -31,7 +31,7 @@ AddRemoteEvent("AdjustAttachmentPosition", function(player, modelid, bone, x, y,
   SetObjectAttached(AttachedData[player].object, ATTACH_PLAYER, player, x, y, z, rx, ry, rz, bone)
 
   info = string.format("SetObjectAttached([...], %d, %d, %d, %d, %d, %d, %s)", x, y, z, rx, ry, rz, bone)
-  CallRemoteEvent(player, "UpdateTextBox", info)
+  CallRemoteEvent(player, "UpdateCodeBox", info)
   AddPlayerChat(player, "OPUS: Object attached.  Use detach to remove.")
 end)
 

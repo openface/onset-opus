@@ -1,3 +1,3 @@
-function UpdateTextBox(info) {
-  $("#textbox").val(info);
+function UpdateCodeBox(info) {
+  $("#codebox").html(info);
 }

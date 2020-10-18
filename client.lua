@@ -4,12 +4,30 @@ AddEvent("OnPackageStart", function()
   OpusUI = CreateWebUI(0.0, 0.0, 0.0, 0.0)
   SetWebAnchors(OpusUI, 0.0, 0.0, 1.0, 1.0)
   LoadWebFile(OpusUI, 'http://asset/' .. GetPackageName() .. '/ui/info.html')
-  SetWebVisibility(OpusUI, WEB_HITINVISIBLE)
+  SetWebVisibility(OpusUI, WEB_HIDDEN)
 end)
 
 AddEvent("OnPackageStop", function()
   DestroyWebUI(OpusUI)
 end)
+
+AddEvent("OnKeyPress", function(key)
+    if key == "F5" then
+        if GetWebVisibility(OpusUI) == WEB_HIDDEN then
+            SetWebVisibility(OpusUI, WEB_VISIBLE)
+            SetInputMode(INPUT_GAMEANDUI)
+            ShowMouseCursor(true)
+            SetIgnoreMoveInput(true)
+        else
+            SetWebVisibility(OpusUI, WEB_HIDDEN)
+            SetInputMode(INPUT_GAME)
+            ShowMouseCursor(false)
+            SetIgnoreMoveInput(false)
+        end
+    end
+end)
+
+
 
 AddEvent("OnConsoleInput", function(input)
   args = split_string(input)
@@ -61,8 +79,8 @@ function split_string(inputstr, sep)
     return t
 end
 
-AddRemoteEvent("UpdateTextBox", function(info)
-  ExecuteWebJS(OpusUI, "UpdateTextBox('"..info.."')")
+AddRemoteEvent("UpdateCodeBox", function(info)
+  ExecuteWebJS(OpusUI, "UpdateCodeBox('"..info.."')")
 end)
 
 
