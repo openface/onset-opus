@@ -1,9 +1,17 @@
 $(document).ready(function () {
+  // create new object
+  $("#create_object").click(function (e) {
+    CallEvent("opus:CreateObject", $("#create_modelid").val());
+  });
+  // create new object
+  $("#destroy_object").click(function (e) {
+    CallEvent("opus:DestroyObject");
+  });
+
   // attach object to player
-  $("#attach_player").click(function (e) {
+  $("#attach_object").click(function (e) {
     CallEvent(
-      "opus:AttachPlayer",
-      $("#attach_modelid").val(),
+      "opus:AttachObject",
       $("#attach_bone").val(),
       $("#attach_x").val(),
       $("#attach_y").val(),
@@ -14,11 +22,12 @@ $(document).ready(function () {
     );
   });
   // detach object from player
-  $("#destroy_attachment").click(function (e) {
-    CallEvent("opus:DestroyAttachment");
+  $("#detach_object").click(function (e) {
+    CallEvent("opus:DetachObject");
   });
+
   // add component to attach object
-  $("#add_light").click(function (e) {
+  $("#add_component").click(function (e) {
     CallEvent(
       "opus:AddComponent",
       $("#light_x").val(),

@@ -1,24 +1,50 @@
 local AttachedData = {}
 
+local Objects = {}
+
 AddEvent("OnPackageStop", function()
-  for player,data in pairs(AttachedData) do
-    DestroyObject(data.object)
+  for player,object in pairs(Objects) do
+    DestroyObject(object)
   end
-  AttachedData = {}
+  Objects = {}
 end)
 
-AddRemoteEvent("DestroyAttachment", function(player)
-  if AttachedData[player] ~= nil then
-    DestroyObject(AttachedData[player].object)
-    AttachedData[player] = nil
+--
+-- Objects
+--
+
+-- Create object near player
+AddRemoteEvent("opus:CreateObject", function(player, modelid)
+  if Objects[player] ~= nil then
+    DestroyObject(Objects[player])
   end
+
+  local _x, _y, _z = GetPlayerLocation(player)
+  Objects[player] = CreateObject(modelid, _x, _y+100, _z)
+  AddPlayerChat(player, "OPUS: Object created near player")
 end)
 
--- Attach object
-AddRemoteEvent("AdjustAttachmentPosition", function(player, modelid, bone, x, y, z, rx, ry, rz)
-  if AttachedData[player] ~= nil then
-      DestroyObject(AttachedData[player].object)
-      AttachedData[player] = nil
+-- Destroy object
+AddRemoteEvent("opus:DestroyObject", function(player)
+    if Objects[player] ~= nil then
+        DestroyObject(Objects[player])
+        AddPlayerChat(player, "OPUS: Object destroyed")
+    end
+end)
+
+--
+-- Attachments
+--
+
+-- Attach object to player
+AddRemoteEvent("opus:AttachObject", function(player, bone, x, y, z, rx, ry, rz)
+  if Objects[player] == nil then
+    AddPlayerChat(player, "OPUS: Must first create object to attach to player")
+    return
+  end
+
+  if IsObjectAttached(Objects[player]) then
+    SetObjectDetached(Objects[player])
   end
 
   x = x or 0
@@ -28,50 +54,47 @@ AddRemoteEvent("AdjustAttachmentPosition", function(player, modelid, bone, x, y,
   ry = ry or 0
   rz = rz or 0
 
-  local _x, _y, _z = GetPlayerLocation(player)
-  AttachedData[player] = {
-      modelid = modelid,
-      bone = bone,
-      object = CreateObject(modelid, _x, _y, _z)
-  }
-
-  SetObjectAttached(AttachedData[player].object, ATTACH_PLAYER, player, x, y, z, rx, ry, rz, bone)
+  SetObjectAttached(Objects[player], ATTACH_PLAYER, player, x, y, z, rx, ry, rz, bone)
 
   info = string.format("SetObjectAttached([...], %d, %d, %d, %d, %d, %d, %s)", x, y, z, rx, ry, rz, bone)
-  AddPlayerChat(player, "OPUS: Object attached")
+  AddPlayerChat(player, "OPUS: Object attached to player")
 end)
 
+-- Detach object from player
+AddRemoteEvent("opus:DetachObject", function(player)
+    if Objects[player] == nil then
+      AddPlayerChat(player, "OPUS: Must first create object to attach to player")
+      return
+    end
+
+    if IsObjectAttached(Objects[player]) then
+      SetObjectDetached(Objects[player])
+      AddPlayerChat(player, "OPUS: Object detached from player")
+    end
+end)
+
+--
+-- Components
+--
+
 -- Set attached object property value to given location and rotation vectors
-AddRemoteEvent("AdjustComponentPosition", function(player, x, y, z, rx, ry, rz)
-    if AttachedData[player] == nil then
-        AddPlayerChat(player, "OPUS: Must first attach an object to add a light component to!")
-        return
+AddRemoteEvent("opus:AddComponent", function(player, x, y, z, rx, ry, rz)
+    if Objects[player] == nil then
+      AddPlayerChat(player, "OPUS: Must first create object to add a component to")
+      return
     end
 
     local pos = { x = x, y = y, z = z, rx = rx, ry = ry, rz = rz }
-    SetObjectPropertyValue(AttachedData[player].object, "component_position", pos)
+    SetObjectPropertyValue(Objects[player], "component_position", pos)
     AddPlayerChat(player, "OPUS: Attached light component to attached object!")
 end)
 
-AddRemoteEvent("DestroyComponent", function(player)
-  if AttachedData[player] == nil then
-    AddPlayerChat(player, "OPUS: There is no object!")
+-- Remove component from object
+AddRemoteEvent("opus:DestroyComponent", function(player)
+  if Objects[player] == nil then
+    AddPlayerChat(player, "OPUS: There is no object")
     return
   end
-  SetObjectPropertyValue(AttachedData[player].object, "component_position", false)
+  SetObjectPropertyValue(Objects[player], "component_position", false)
 end)
 
-function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then
-                k = '"' .. k .. '"'
-            end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-    else
-        return tostring(o)
-    end
-end

@@ -10,6 +10,7 @@ body {
   align-content: center;
   align-items: flex-start;
   min-height: 100vh;
+  max-width:550px;
 }
 #inner {
   flex: 0 1 auto;
@@ -42,6 +43,11 @@ fieldset {
 .form-group {
   padding:5px 0;
 }
+fieldset p {
+  color:#eee;
+  font-size:12px;
+  padding:3px 0;
+}
 .buttons {
   padding-top:5px;
   text-align:center;
@@ -68,6 +74,7 @@ input {
   padding:3px;
   background:rgba(255,255,255,0.5);
   border:1px solid rgba(0,0,0,0.5);
+  font-weight:bold;
 }
 input[type=number]{
     width: 50px;

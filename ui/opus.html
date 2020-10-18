@@ -39,43 +39,59 @@
           <h3>OPUS: Object Positioning Utility Script</h3>
 
           <fieldset>
-            <legend>Attach object to player</legend>
+            <legend>Create new object</legend>
+            <p>Creates an object near player.  This object can be attached to player
+            and used for adding component to.</p>
             <div class="form-group">
-              Model ID <input type="text" id="attach_modelid" value="1271" size="10" />
-              SocketName <input type="text" id="attach_bone" value="hand_l" size="15" />
-            </div>
-            Relative position/rotation:<br />
-            <div class="form-group">
-              X <input type="number" id="attach_x" value="0" size="3" />
-              Y <input type="number" id="attach_y" value="0" size="3" />
-              Z <input type="number" id="attach_z" value="0" size="3" />
-              RX <input type="number" id="attach_rx" value="0" size="3" />
-              RY <input type="number" id="attach_ry" value="0" size="3" />
-              RZ <input type="number" id="attach_rz" value="0" size="3" />
+              Model ID <input type="text" id="create_modelid" value="1271" size="10" />
             </div>
             <div class="buttons">
-              <button id="attach_player">ATTACH TO PLAYER</button>
-              <button id="attach_new_object">ATTACH TO NEW OBJECT</button>
-              <button id="destroy_attachment">DETACH</button>
+              <button id="create_object">CREATE</button>
+              <button id="destroy_object">DESTROY</button>
             </div>
           </fieldset>
+
           <br />
+
           <fieldset>
-            <legend>Add light component to attached object</legend>
-            Relative position/rotation:<br />
+            <legend>Add light component to object</legend>
+            <p>Adds a light component to the object created or attached above.</p>
             <div class="form-group">
               X <input type="number" id="light_x" value="0" size="3" />
               Y <input type="number" id="light_y" value="0" size="3" />
               Z <input type="number" id="light_z" value="0" size="3" />
               RX <input type="number" id="light_rx" value="0" size="3" />
-              RY <input type="number" id="light_ry" value="0" size="3" />
+              RY <input type="number" id="light_ry" value="270" size="3" />
               RZ <input type="number" id="light_rz" value="0" size="3" />
             </div>
             <div class="buttons">
-              <button id="add_light">ADD COMPONENT</button>
-              <button id="destroy_component">DESTROY COMPONENT</button>
+              <button id="add_component">SET</button>
+              <button id="destroy_component">DESTROY</button>
             </div>
           </fieldset>
+
+          <br />
+
+          <fieldset>
+            <legend>Attach object to player</legend>
+            <p>Attach object to the player bone with given relative location and rotation.</p>
+            <div class="form-group">
+              SocketName <input type="text" id="attach_bone" value="hand_l" size="15" />
+            </div>
+            <div class="form-group">
+              X <input type="number" id="attach_x" value="33" size="3" />
+              Y <input type="number" id="attach_y" value="-8" size="3" />
+              Z <input type="number" id="attach_z" value="0" size="3" />
+              RX <input type="number" id="attach_rx" value="360" size="3" />
+              RY <input type="number" id="attach_ry" value="260" size="3" />
+              RZ <input type="number" id="attach_rz" value="-120" size="3" />
+            </div>
+            <div class="buttons">
+              <button id="attach_object">ATTACH</button>
+              <button id="detach_object">DETACH</button>
+            </div>
+          </fieldset>
+
       </div>
     </div>
   </body>
