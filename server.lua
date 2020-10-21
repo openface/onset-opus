@@ -78,15 +78,18 @@ end)
 --
 
 -- Set attached object property value to given location and rotation vectors
-AddRemoteEvent("opus:AddComponent", function(player, x, y, z, rx, ry, rz)
+AddRemoteEvent("opus:AddComponent", function(player, type, x, y, z, rx, ry, rz)
     if Objects[player] == nil then
-      AddPlayerChat(player, "OPUS: Must first create object to add a component to")
+      AddPlayerChat(player, "OPUS: Must first create object to add a component to!")
       return
     end
 
-    local pos = { x = x, y = y, z = z, rx = rx, ry = ry, rz = rz }
-    SetObjectPropertyValue(Objects[player], "component_position", pos)
-    AddPlayerChat(player, "OPUS: Attached light component to attached object!")
+    local comp = {
+      type = type,
+      position = { x = x, y = y, z = z, rx = rx, ry = ry, rz = rz }
+    }
+    SetObjectPropertyValue(Objects[player], "component", comp)
+    AddPlayerChat(player, "OPUS: Added light component to object!")
 end)
 
 -- Remove component from object
@@ -95,6 +98,6 @@ AddRemoteEvent("opus:DestroyComponent", function(player)
     AddPlayerChat(player, "OPUS: There is no object")
     return
   end
-  SetObjectPropertyValue(Objects[player], "component_position", false)
+  SetObjectPropertyValue(Objects[player], "component", false)
 end)
 

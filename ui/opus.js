@@ -30,6 +30,7 @@ $(document).ready(function () {
   $("#add_component").click(function (e) {
     CallEvent(
       "opus:AddComponent",
+      $("#light_type option:selected").val(),
       $("#light_x").val(),
       $("#light_y").val(),
       $("#light_z").val(),

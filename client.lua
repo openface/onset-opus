@@ -47,8 +47,8 @@ AddEvent("opus:DetachObject", function()
 end)
 
 -- component
-AddEvent("opus:AddComponent", function(x, y, z, rx, ry, rz)
-    CallRemoteEvent("opus:AddComponent", x, y, z, rx, ry, rz)
+AddEvent("opus:AddComponent", function(type, x, y, z, rx, ry, rz)
+    CallRemoteEvent("opus:AddComponent", type, x, y, z, rx, ry, rz)
 end)
 
 AddEvent("opus:DestroyComponent", function()
@@ -60,7 +60,7 @@ end)
 --
 local Component
 
-function AdjustComponentPosition(object, x, y, z, rx, ry, rz)
+function AdjustComponentPosition(object, type, x, y, z, rx, ry, rz)
     if Component ~= nil then
       Component:Destroy()
     end
@@ -68,7 +68,13 @@ function AdjustComponentPosition(object, x, y, z, rx, ry, rz)
     local Actor = GetObjectActor(object)
     Actor:SetActorEnableCollision(false)
 
-    Component = Actor:AddComponent(USpotLightComponent.Class())
+    if type == "spotlight" then
+      Component = Actor:AddComponent(USpotLightComponent.Class())
+    elseif type == "pointlight" then
+      Component = Actor:AddComponent(UPointLightComponent.Class())
+    elseif type == "rectlight" then
+      Component = Actor:AddComponent(URectLightComponent.Class())
+    end
     Component:SetIntensity(30000)
     Component:SetLightColor(FLinearColor(255, 255, 255, 0), true)
     Component:SetRelativeLocation(FVector(x, y, z))
@@ -77,33 +83,33 @@ function AdjustComponentPosition(object, x, y, z, rx, ry, rz)
 end
 
 AddEvent("OnObjectStreamIn", function(object)
-    local pos = GetObjectPropertyValue(object, "component_position")
-    if pos == nil then
+    local comp = GetObjectPropertyValue(object, "component")
+    if comp == nil then
       return
     end
 
-    if pos ~= false then
-      AdjustComponentPosition(object, pos.x, pos.y, pos.z, pos.rx, pos.ry, pos.rz)
+    if comp ~= false then
+      AdjustComponentPosition(object, comp.type, comp.position.x, comp.position.y, comp.position.z, comp.position.rx, comp.position.ry, comp.position.rz)
     end
 end)
 
 AddEvent("OnObjectStreamOut", function(object)
-    local pos = GetObjectPropertyValue(object, "component_position")
-    if pos == nil then
+    local comp = GetObjectPropertyValue(object, "component")
+    if comp == nil then
       return false
     end
     
-    if pos == false and Component ~= nil then
+    if comp == false and Component ~= nil then
       Component:Destroy()
     end
 end)
 
 AddEvent("OnObjectNetworkUpdatePropertyValue", function(object, name, value)
-    if name == "component_position" then
+    if name == "component" then
       if value == false then
         Component:Destroy()
       else
-        AdjustComponentPosition(object, value.x, value.y, value.z, value.rx, value.ry, value.rz)
+        AdjustComponentPosition(object, value.type, value.position.x, value.position.y, value.position.z, value.position.rx, value.position.ry, value.position.rz)
       end
     end
 end)
