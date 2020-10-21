@@ -88,7 +88,7 @@ AddRemoteEvent("opus:AddComponent", function(player, type, x, y, z, rx, ry, rz)
       type = type,
       position = { x = x, y = y, z = z, rx = rx, ry = ry, rz = rz }
     }
-    SetObjectPropertyValue(Objects[player], "component", comp)
+    SetObjectPropertyValue(Objects[player], "opus:component", comp)
     AddPlayerChat(player, "OPUS: Added light component to object!")
 end)
 
@@ -98,6 +98,6 @@ AddRemoteEvent("opus:DestroyComponent", function(player)
     AddPlayerChat(player, "OPUS: There is no object")
     return
   end
-  SetObjectPropertyValue(Objects[player], "component", false)
+  SetObjectPropertyValue(Objects[player], "opus:component", false)
 end)
 

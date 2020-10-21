@@ -63,6 +63,7 @@ local Component
 function AdjustComponentPosition(object, type, x, y, z, rx, ry, rz)
     if Component ~= nil then
       Component:Destroy()
+      Component = nil
     end
 
     local Actor = GetObjectActor(object)
@@ -83,7 +84,7 @@ function AdjustComponentPosition(object, type, x, y, z, rx, ry, rz)
 end
 
 AddEvent("OnObjectStreamIn", function(object)
-    local comp = GetObjectPropertyValue(object, "component")
+    local comp = GetObjectPropertyValue(object, "opus:component")
     if comp == nil then
       return
     end
@@ -94,7 +95,7 @@ AddEvent("OnObjectStreamIn", function(object)
 end)
 
 AddEvent("OnObjectStreamOut", function(object)
-    local comp = GetObjectPropertyValue(object, "component")
+    local comp = GetObjectPropertyValue(object, "opus:component")
     if comp == nil then
       return false
     end
@@ -105,12 +106,14 @@ AddEvent("OnObjectStreamOut", function(object)
 end)
 
 AddEvent("OnObjectNetworkUpdatePropertyValue", function(object, name, value)
-    if name == "component" then
-      if value == false then
-        Component:Destroy()
-      else
-        AdjustComponentPosition(object, value.type, value.position.x, value.position.y, value.position.z, value.position.rx, value.position.ry, value.position.rz)
-      end
+    if name ~= "opus:component" then
+      return false
+    end
+    if value == false and Component ~= nil then
+      Component:Destroy()
+      Component = nil
+    else
+      AdjustComponentPosition(object, value.type, value.position.x, value.position.y, value.position.z, value.position.rx, value.position.ry, value.position.rz)
     end
 end)
 
