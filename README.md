@@ -7,4 +7,4 @@ DO NOT USE THIS PACKAGE ON A PUBLIC SERVER!
 
 Press F5 to toggle the OPUS.
 
-[![Image from Gyazo](https://i.gyazo.com/f48ae7f327e00a3ade7681ffd8d385ad.gif)](https://gyazo.com/f48ae7f327e00a3ade7681ffd8d385ad)
+[![Image from Gyazo](https://i.gyazo.com/f0e77c5b26953277ffece96e9a065d78.gif)](https://gyazo.com/f0e77c5b26953277ffece96e9a065d78)
