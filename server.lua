@@ -55,8 +55,6 @@ AddRemoteEvent("opus:AttachObject", function(player, bone, x, y, z, rx, ry, rz)
   rz = rz or 0
 
   SetObjectAttached(Objects[player], ATTACH_PLAYER, player, x, y, z, rx, ry, rz, bone)
-
-  info = string.format("SetObjectAttached([...], %d, %d, %d, %d, %d, %d, %s)", x, y, z, rx, ry, rz, bone)
   AddPlayerChat(player, "OPUS: Object attached to player")
 end)
 

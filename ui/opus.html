@@ -40,8 +40,6 @@
 
           <fieldset>
             <legend>Create new object</legend>
-            <p>Creates an object near player.  This object can be attached to player
-            and used for adding component to.</p>
             <div class="form-group">
               Model ID <input type="text" id="create_modelid" value="1271" size="10" />
             </div>
@@ -55,26 +53,47 @@
 
           <fieldset>
             <legend>Add light component to object</legend>
-            <p>Adds a light component to the created object.</p>
             <div class="form-group">
-                Component Type: 
-                <select id="light_type">
-                  <option value="spotlight">Spotlight</option>
-                  <option value="pointlight">Pointlight</option>
-                  <option value="rectlight">Rectlight</option>
+              Type: 
+              <select id="light_type">
+                <option value="spotlight">Spotlight</option>
+                <option value="pointlight">Pointlight</option>
+                <option value="rectlight">Rectlight</option>
               </select>
+              <button id="set_component">SET</button>
+              <button id="destroy_component">DESTROY</button>
             </div>
             <div class="form-group">
-              X <input type="number" id="light_x" value="0" size="3" />
-              Y <input type="number" id="light_y" value="0" size="3" />
-              Z <input type="number" id="light_z" value="0" size="3" />
-              RX <input type="number" id="light_rx" value="0" size="3" />
-              RY <input type="number" id="light_ry" value="270" size="3" />
-              RZ <input type="number" id="light_rz" value="0" size="3" />
-            </div>
-            <div class="buttons">
-              <button id="add_component">SET</button>
-              <button id="destroy_component">DESTROY</button>
+              <div class="coord">
+                <span>X</span>
+                <input type="range" id="light_x_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_x" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>Y</span>
+                <input type="range" id="light_y_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_y" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>Z</span>
+                <input type="range" id="light_z_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_z" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RX</span>
+                <input type="range" id="light_rx_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_rx" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RY</span>
+                <input type="range" id="light_ry_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_ry" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RZ</span>
+                <input type="range" id="light_rz_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="light_rz" value="0" size="5" step="0.1" />
+              </div>
             </div>
           </fieldset>
 
@@ -82,21 +101,42 @@
 
           <fieldset>
             <legend>Attach object to player</legend>
-            <p>Attach object to the player bone.</p>
             <div class="form-group">
-              SocketName <input type="text" id="attach_bone" value="hand_l" size="15" />
-            </div>
-            <div class="form-group">
-              X <input type="number" id="attach_x" value="33" size="3" />
-              Y <input type="number" id="attach_y" value="-8" size="3" />
-              Z <input type="number" id="attach_z" value="0" size="3" />
-              RX <input type="number" id="attach_rx" value="360" size="3" />
-              RY <input type="number" id="attach_ry" value="260" size="3" />
-              RZ <input type="number" id="attach_rz" value="-120" size="3" />
-            </div>
-            <div class="buttons">
+              <input type="text" id="attach_bone" value="hand_l" placeholder="SocketName" size="15" />
               <button id="attach_object">ATTACH</button>
               <button id="detach_object">DETACH</button>
+            </div>
+            <div class="form-group">
+              <div class="coord">
+                <span>X</span>
+                <input type="range" id="attach_x_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_x" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>Y</span>
+                <input type="range" id="attach_y_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_y" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>Z</span>
+                <input type="range" id="attach_z_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_z" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RX</span>
+                <input type="range" id="attach_rx_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_rx" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RY</span>
+                <input type="range" id="attach_ry_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_ry" value="0" size="5" step="0.1" />
+              </div>
+              <div class="coord">
+                <span>RZ</span>
+                <input type="range" id="attach_rz_slider" min="-300" max="300" step="0.1" value="0" />
+                <input type="number" id="attach_rz" value="0" size="5" step="0.1" />
+              </div>
             </div>
           </fieldset>
 

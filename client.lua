@@ -47,7 +47,7 @@ AddEvent("opus:DetachObject", function()
 end)
 
 -- component
-AddEvent("opus:AddComponent", function(type, x, y, z, rx, ry, rz)
+AddEvent("opus:SetComponent", function(type, x, y, z, rx, ry, rz)
     CallRemoteEvent("opus:AddComponent", type, x, y, z, rx, ry, rz)
 end)
 

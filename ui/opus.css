@@ -6,15 +6,14 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: center;
+  justify-content: flex-end;
+  align-content: flex-start;
   align-items: flex-start;
   min-height: 100vh;
-  max-width:550px;
 }
 #inner {
   flex: 0 1 auto;
-  align-self: center;
+  align-self: auto;
   background:rgba(0,0,0,0.5);
   border-radius: 5px;
   color: #fff;
@@ -23,6 +22,7 @@ body {
   padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 1px 1px #000;
+  max-width:325px;
 }
 h3 {
   margin-top:0;
@@ -39,14 +39,29 @@ legend {
 fieldset {
   background:rgba(0,0,0,0.1);
   border:1px solid #333;
-}
-.form-group {
-  padding:5px 0;
+  text-align:center;
 }
 fieldset p {
   color:#eee;
   font-size:12px;
   padding:3px 0;
+}
+.form-group {
+  padding:5px 0;
+}
+.coord {
+  background: rgba(0,0,0,0.1);
+  padding:5px;
+}
+.coord span {
+  font-size:20px;
+  font-weight:bold;
+  width:50px;
+  display:block;
+  float:left;
+  text-align:center;
+  position:relative;
+  top:7px;
 }
 .buttons {
   padding-top:5px;
@@ -72,10 +87,13 @@ button:hover {
 }
 input {
   padding:3px;
-  background:rgba(255,255,255,0.5);
   border:1px solid rgba(0,0,0,0.5);
   font-weight:bold;
 }
-input[type=number]{
-    width: 50px;
+input[type=range] {
+  position:relative;
+  top:5px;  
+}
+input[type=number] {
+    width: 60px;
 } 
