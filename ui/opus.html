@@ -36,111 +36,99 @@
   <body>
     <div id="container">
       <div id="inner">
-          <h3>OPUS: Object Positioning Utility Script</h3>
 
-          <fieldset>
-            <legend>Create new object</legend>
-            <div class="form-group">
-              Model ID <input type="text" id="create_modelid" value="1271" size="10" />
-            </div>
-            <div class="buttons">
-              <button id="create_object">CREATE</button>
-              <button id="destroy_object">DESTROY</button>
-            </div>
-          </fieldset>
+        <div class="header">OPUS: Object Positioning Utility Script</div>
 
+        <div class="subheader">Create new Object</div>
+        <div class="form-group">
+          ModelID
+          <input type="text" id="create_modelid" value="1271" size="5" />
+          <button id="create_object">CREATE</button>
+          <button id="destroy_object">DESTROY</button>
+        </div>
+
+        <div class="subheader">Add light component to object</div>
+        <div class="form-group">
+          Type
+          <select id="light_type" class="select">
+            <option value="spotlight">Spotlight</option>
+            <option value="pointlight">Pointlight</option>
+            <option value="rectlight">Rectlight</option>
+          </select>
+          <button id="set_component">SET</button>
+          <button id="destroy_component">DESTROY</button>
           <br />
+          <div class="coord">
+            <span>X</span>
+            <input type="range" id="light_x_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_x" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>Y</span>
+            <input type="range" id="light_y_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_y" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>Z</span>
+            <input type="range" id="light_z_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_z" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RX</span>
+            <input type="range" id="light_rx_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_rx" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RY</span>
+            <input type="range" id="light_ry_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_ry" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RZ</span>
+            <input type="range" id="light_rz_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="light_rz" value="0" size="5" step="0.1" />
+          </div>
+        </div>
 
-          <fieldset>
-            <legend>Add light component to object</legend>
-            <div class="form-group">
-              Type: 
-              <select id="light_type">
-                <option value="spotlight">Spotlight</option>
-                <option value="pointlight">Pointlight</option>
-                <option value="rectlight">Rectlight</option>
-              </select>
-              <button id="set_component">SET</button>
-              <button id="destroy_component">DESTROY</button>
-            </div>
-            <div class="form-group">
-              <div class="coord">
-                <span>X</span>
-                <input type="range" id="light_x_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_x" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>Y</span>
-                <input type="range" id="light_y_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_y" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>Z</span>
-                <input type="range" id="light_z_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_z" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RX</span>
-                <input type="range" id="light_rx_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_rx" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RY</span>
-                <input type="range" id="light_ry_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_ry" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RZ</span>
-                <input type="range" id="light_rz_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="light_rz" value="0" size="5" step="0.1" />
-              </div>
-            </div>
-          </fieldset>
-
+        <div class="subheader">Attach object to player</div>
+        <div class="form-group">
+          <input type="text" id="attach_bone" value="hand_l" placeholder="SocketName" size="15" />
+          <button id="attach_object">ATTACH</button>
+          <button id="detach_object">DETACH</button>
           <br />
+          <div class="coord">
+            <span>X</span>
+            <input type="range" id="attach_x_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_x" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>Y</span>
+            <input type="range" id="attach_y_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_y" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>Z</span>
+            <input type="range" id="attach_z_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_z" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RX</span>
+            <input type="range" id="attach_rx_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_rx" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RY</span>
+            <input type="range" id="attach_ry_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_ry" value="0" size="5" step="0.1" />
+          </div>
+          <div class="coord">
+            <span>RZ</span>
+            <input type="range" id="attach_rz_slider" min="-300" max="300" step="0.1" value="0" />
+            <input type="number" id="attach_rz" value="0" size="5" step="0.1" />
+          </div>
+        </div>
 
-          <fieldset>
-            <legend>Attach object to player</legend>
-            <div class="form-group">
-              <input type="text" id="attach_bone" value="hand_l" placeholder="SocketName" size="15" />
-              <button id="attach_object">ATTACH</button>
-              <button id="detach_object">DETACH</button>
-            </div>
-            <div class="form-group">
-              <div class="coord">
-                <span>X</span>
-                <input type="range" id="attach_x_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_x" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>Y</span>
-                <input type="range" id="attach_y_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_y" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>Z</span>
-                <input type="range" id="attach_z_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_z" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RX</span>
-                <input type="range" id="attach_rx_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_rx" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RY</span>
-                <input type="range" id="attach_ry_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_ry" value="0" size="5" step="0.1" />
-              </div>
-              <div class="coord">
-                <span>RZ</span>
-                <input type="range" id="attach_rz_slider" min="-300" max="300" step="0.1" value="0" />
-                <input type="number" id="attach_rz" value="0" size="5" step="0.1" />
-              </div>
-            </div>
-          </fieldset>
-
-      </div>
-    </div>
+      </div> <!-- inner -->
+    </div> <!-- container -->
   </body>
 </html>
