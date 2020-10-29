@@ -1,6 +1,6 @@
 {
 	"author": "openface",
-	"version": "0.1",
+	"version": "0.2",
 	"server_scripts": [
 		"server.lua"
 	],

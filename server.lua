@@ -28,6 +28,7 @@ end)
 AddRemoteEvent("opus:DestroyObject", function(player)
     if Objects[player] ~= nil then
         DestroyObject(Objects[player])
+        Objects[player] = nil
         AddPlayerChat(player, "OPUS: Object destroyed")
     end
 end)
