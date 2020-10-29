@@ -56,7 +56,7 @@ AddEvent("opus:DestroyComponent", function()
 end)
 
 --
--- Pointlight
+-- Light Component
 --
 local Component
 
@@ -83,37 +83,15 @@ function AdjustComponentPosition(object, type, x, y, z, rx, ry, rz)
     AddPlayerChat("OPUS: Component location and rotation set")
 end
 
-AddEvent("OnObjectStreamIn", function(object)
-    local comp = GetObjectPropertyValue(object, "opus:component")
-    if comp == nil then
-      return
-    end
 
-    if comp ~= false then
-      AdjustComponentPosition(object, comp.type, comp.position.x, comp.position.y, comp.position.z, comp.position.rx, comp.position.ry, comp.position.rz)
-    end
+AddRemoteEvent("SetComponent", function(object, comp)
+    AdjustComponentPosition(object, comp.type, comp.position.x, comp.position.y, comp.position.z, comp.position.rx, comp.position.ry, comp.position.rz)
 end)
 
-AddEvent("OnObjectStreamOut", function(object)
-    local comp = GetObjectPropertyValue(object, "opus:component")
-    if comp == nil then
-      return false
-    end
-    
-    if comp == false and Component ~= nil then
+AddRemoteEvent("RemoveComponent", function(object)
+    if Component ~= nil then
       Component:Destroy()
     end
 end)
 
-AddEvent("OnObjectNetworkUpdatePropertyValue", function(object, name, value)
-    if name ~= "opus:component" then
-      return false
-    end
-    if value == false and Component ~= nil then
-      Component:Destroy()
-      Component = nil
-    else
-      AdjustComponentPosition(object, value.type, value.position.x, value.position.y, value.position.z, value.position.rx, value.position.ry, value.position.rz)
-    end
-end)
 
