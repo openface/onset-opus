@@ -20,7 +20,7 @@ AddRemoteEvent("opus:CreateObject", function(player, modelid)
   end
 
   local _x, _y, _z = GetPlayerLocation(player)
-  Objects[player] = CreateObject(modelid, _x, _y+100, _z)
+  Objects[player] = CreateObject(modelid, _x, _y+100, _z-75)
   AddPlayerChat(player, "OPUS: Object created near player")
 end)
 
