@@ -35,7 +35,7 @@ $(document).ready(function () {
     // listen to slider; update textbox value and trigger SET event
     $("#" + map.coord_el + "_slider").on("input change", (e) => {
       $("#" + map.coord_el).val(e.target.value);
-      if (Date.now() > lastUpdate + 150) {
+      if (Date.now() > lastUpdate + 50) {
         lastUpdate = Date.now();
         $("#" + map.set_el).trigger("click");
       }
