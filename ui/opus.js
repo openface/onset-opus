@@ -28,7 +28,8 @@ $(document).ready(function () {
     { coord_el: "attach_z", set_el: "attach_object" },
     { coord_el: "attach_rx", set_el: "attach_object" },
     { coord_el: "attach_ry", set_el: "attach_object" },
-    { coord_el: "attach_rz", set_el: "attach_object" }
+    { coord_el: "attach_rz", set_el: "attach_object" },
+    { coord_el: "attach_scale", set_el: "attach_object"}
   ];
   $.each(coordsMap, function (_,map) {
 
@@ -80,7 +81,8 @@ $(document).ready(function () {
       $("#attach_z").val(),
       $("#attach_rx").val(),
       $("#attach_ry").val(),
-      $("#attach_rz").val()
+      $("#attach_rz").val(),
+      $("#attach_scale").val()
     );
   });
   // detach object from player
