@@ -54,9 +54,8 @@ AddRemoteEvent("opus:AttachObject", function(player, bone, x, y, z, rx, ry, rz, 
   rx = rx or 0
   ry = ry or 0
   rz = rz or 0
+  scale = scale or 0.5
 
-  --- si l'object de ce scale pas
-  -- SetObjectDetached(Objects[player])
   SetObjectScale(Objects[player], scale, scale, scale)
 
   SetObjectAttached(Objects[player], ATTACH_PLAYER, player, x, y, z, rx, ry, rz, bone)
